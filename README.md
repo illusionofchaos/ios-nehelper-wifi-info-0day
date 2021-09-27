@@ -1,5 +1,8 @@
 # Nehelper Wifi Info 0-day (iOS 15.0)
 
+
+I've updated this code to avoid using Private API directly. Read more in my [blog post](https://habr.com/en/post/580272/). However, that means that now this code is iOS version-specific and possibly device model-specific. So if it doesn't work on your device, recalculate and update the offsets in `c.c` file. The original code can be found in [direct](https://github.com/illusionofchaos/ios-nehelper-wifi-info-0day/tree/direct) branch.
+
 XPC endpoint `com.apple.nehelper` accepts user-supplied parameter `sdk-version`, and if its value is less than or equal to 524288, `com.apple.developer.networking.wifi-info` entiltlement check is skipped.
 Ths makes it possible for any qualifying app (e.g. posessing location access authorization) to gain access to Wifi information without the required entitlement.
 This happens in `-[NEHelperWiFiInfoManager checkIfEntitled:]` in `/usr/libexec/nehelper`.
